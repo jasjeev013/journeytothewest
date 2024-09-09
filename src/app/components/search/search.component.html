@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Include Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .form-control {
+            border: 1px solid black !important;
+        }
+
+        .form-select {
+            border: 1px solid black !important;
+        }
+
+        .rounded-btn {
+            border-radius: 20px;
+        }
+
+        .navbar {
+            background-color: #1e6a99 !important;
+            color: white !important;
+        }
+
+        .card-body {
+            border: 1px solid gray !important;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="container-fluid bg-secondary p-4">
+        <div class="row">
+            <div class="col-4 px-4">
+                <select class="form-select" [(ngModel)]="searchData.fromStationId">
+                    <option *ngFor="let item of stationList; let i = index" [value]="item.stationID">
+                        {{item.stationName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-4 px-4">
+                <select class="form-select" [(ngModel)]="searchData.toStationId">
+                    <option *ngFor="let item of stationList; let i = index" [value]="item.stationID">
+                        {{item.stationName}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-2 px-2">
+                <input type="text" class="form-control" [(ngModel)]="searchData.dateOfTravel" />
+            </div>
+            <div class="col-2 text-end">
+                <button type="button" class="btn btn-primary btn-sm" (click)="getSearchTrains()">Modify Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid pt-2">
+        <p style="border: 1px solid; padding: 5px; margin-top: 5px;"><strong>{{trainList.length}}</strong> Result Found
+            For <strong>Pune</strong> to <strong>Nagpur</strong> on 12-12-2023</p>
+        <div class="row">
+            <div *ngFor="let train of trainList" class="col-6 mt-2">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        {{train.trainName}}({{train.trainNo}})
+                    </div>
+                    <div class="card-body">
+                        <div class="row pb-2">
+                            <div class="col-5">
+                                {{train.departureTime}} | {{train.departureStationName}} | {{train.departureDate |
+                                date:'dd-MM-yy'}}
+                            </div>
+                            <div class="col-2">
+                                15:05 hrs
+                            </div>
+                            <div class="col-5 text-end">
+                                {{train.arrivalTime}} | {{train.arrivalStationName}} | {{train.arrivalTime}}
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#myModal">Book
+                            Now</button>
+                        <button class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal">Check
+                            Availability</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
